@@ -1,8 +1,11 @@
+<<<<<<< HEAD
 <?php
 /** @var string $title */
 /** @var string $content */
 ?>
 
+=======
+>>>>>>> origin/main
 <!doctype html>
 <html lang="en">
 <head>
