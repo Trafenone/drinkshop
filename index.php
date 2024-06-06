@@ -1,5 +1,6 @@
 <?php
 
+use core\Config;
 use core\Core;
 
 include('core/Router.php');
@@ -14,6 +15,9 @@ spl_autoload_register(static function ($class) {
 
 isset($_GET['route']) ? $route = $_GET['route'] : $route = '';
 
+echo Config::getInstance()->dbName;
+
+die;
 $core = Core::getInstance();
 $core->run($route);
 $core->done();
