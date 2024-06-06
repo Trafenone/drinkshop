@@ -1,8 +1,9 @@
 <?php
 
-use Core\Router;
+use core\router;
+use core\Template;
 
-include('Core/Router.php');
+include('core/Router.php');
 
 spl_autoload_register(static function ($class) {
     $path = str_replace('\\', '/', $class) . '.php';
@@ -14,7 +15,6 @@ spl_autoload_register(static function ($class) {
 
 isset($_GET['route']) ? $route = $_GET['route'] : $route = '';
 
-$router = new Router($route);
+$router = new router($route);
 $router->run();
-
-echo "<h1>index.php</h1>";
+$router->done();
