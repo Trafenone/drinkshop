@@ -13,6 +13,16 @@ class Template
         $this->paramsArray = [];
     }
 
+    public function __set($key, $value)
+    {
+        Core::getInstance()->template->setParam($key, $value);
+    }
+
+    public function setTemplateFilePath($templateFilePath)
+    {
+        $this->templateFilePath = $templateFilePath;
+    }
+
     public function setParam($key, $value)
     {
         $this->paramsArray[$key] = $value;
@@ -20,7 +30,10 @@ class Template
 
     public function setParams($params)
     {
-        $this->paramsArray = array_merge($this->paramsArray, $params);
+        foreach ($params as $key => $value) {
+            $this->setParam($key, $value);
+        }
+        //$this->paramsArray = array_merge($this->paramsArray, $params);
     }
 
     public function getHTML()

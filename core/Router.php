@@ -5,12 +5,10 @@ namespace core;
 class Router
 {
     protected $route;
-    protected $indexTemplate;
 
     public function __construct($route)
     {
         $this->route = $route;
-        $this->indexTemplate = new Template('project/views/layouts/index.php');
     }
 
     public function run()
@@ -26,6 +24,9 @@ class Router
             $parts[1] = 'index';
         }
 
+        Core::getInstance()->moduleName = $parts[0];
+        Core::getInstance()->actionName = $parts[1];
+
         $controller = 'project\\controllers\\' . ucfirst($parts[0]) . 'Controller';
         $method = 'action' . ucfirst($parts[1]);
 
@@ -33,19 +34,20 @@ class Router
             $controllerObject = new $controller();
             if (method_exists($controllerObject, $method)) {
                 array_splice($parts, 0, 2);
-                $params = $controllerObject->$method($parts);
-                $this->indexTemplate->setParams($params);
+                return $controllerObject->$method($parts);
             } else {
+                echo 'Method not exists!';
                 $this->error(404);
             }
         } else {
+            echo 'Controller not exists!';
             $this->error(404);
         }
     }
 
     public function done()
     {
-        $this->indexTemplate->display();
+
     }
 
     public function error($code)

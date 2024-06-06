@@ -1,7 +1,6 @@
 <?php
 
-use core\router;
-use core\Template;
+use core\Core;
 
 include('core/Router.php');
 
@@ -15,6 +14,6 @@ spl_autoload_register(static function ($class) {
 
 isset($_GET['route']) ? $route = $_GET['route'] : $route = '';
 
-$router = new router($route);
-$router->run();
-$router->done();
+$core = Core::getInstance();
+$core->run($route);
+$core->done();

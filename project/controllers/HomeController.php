@@ -2,15 +2,12 @@
 
 namespace project\controllers;
 
-class HomeController
+use core\Controller;
+
+class HomeController extends Controller
 {
     public function actionIndex()
     {
-        return ['title' => 'Index', 'content' => 'Some content in Home View'];
-    }
-
-    public function actionView($params)
-    {
-        var_dump($params);
+        return $this->render();
     }
 }

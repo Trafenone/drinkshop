@@ -2,19 +2,24 @@
 
 namespace project\controllers;
 
-use core\Template;
+use core\Controller;
+use core\Core;
 
-class NewsController
+class NewsController extends Controller
 {
     public function actionIndex()
     {
-        $template = new Template('project/views/news/index.php');
-        return ['title' => 'Index', 'content' => $template->getHTML()];
+        return $this->render();
+    }
+
+    public function actionView($params)
+    {
+        var_dump($params);
     }
 
     public function actionAdd()
     {
-        $template = new Template('project/views/news/add.php');
-        return ['title' => 'Add news', 'content' => $template->getHTML()];
+        Core::getInstance()->template->setParam('title', 'Add');
+        return $this->render();
     }
 }
