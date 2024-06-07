@@ -22,7 +22,7 @@ if(empty($title)) {
 <header class="p-3 text-bg-dark">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
         <div class="container">
-            <a class="navbar-brand" href="/home">Container</a>
+            <a class="navbar-brand" href="/home">Logo</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,13 +30,13 @@ if(empty($title)) {
             <div class="collapse navbar-collapse" id="navbarsExample07">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                        <a class="nav-link active" aria-current="page" href="/home">Головна</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/news/index">News</a>
+                        <a class="nav-link" href="/products/index" aria-disabled="true">Продукти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="/news/index">Новини</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>

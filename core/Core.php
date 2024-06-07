@@ -10,10 +10,18 @@ class Core
     public $actionName;
     public $router;
     public $template;
+    public $db;
 
     private function __construct()
     {
         $this->template = new Template($this->defaultLayout);
+
+        $host = Config::getInstance()->dbHost;
+        $name = Config::getInstance()->dbName;
+        $login = Config::getInstance()->dbLogin;
+        $password = Config::getInstance()->dbPassword;
+
+        $this->db = new DB($host, $name, $login, $password);
     }
 
     public static function getInstance()
