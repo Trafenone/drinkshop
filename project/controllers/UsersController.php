@@ -34,6 +34,10 @@ class UsersController extends Controller
             $email = $this->post->email;
             $user = User::findByEmail($email);
 
+            if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $this->addErrorMessage('Некоректна пошта');
+            }
+
             if(!empty($user)) {
                 $this->addErrorMessage('Користувач з такою поштою вже існує');
             }

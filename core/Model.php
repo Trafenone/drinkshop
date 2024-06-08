@@ -27,6 +27,11 @@ class Model
         return $this->fieldArray[$key];
     }
 
+    public static function getAll() : array | null
+    {
+        return Core::getInstance()->db->select(static::$tableName);
+    }
+
     public static function deleteById($id)
     {
         Core::getInstance()->db->delete(static::$tableName, [static::$primaryKey => $id]);

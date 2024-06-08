@@ -1,14 +1,15 @@
 <?php
 /** @var string $title */
+
 /** @var string $content */
 
 use project\models\User;
 
-if(empty($title)) {
+if (empty($title)) {
     $title = '';
 }
 
-if(empty($content)) {
+if (empty($content)) {
     $content = '';
 }
 
@@ -22,6 +23,7 @@ if(empty($content)) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $title ?></title>
+    <link rel="stylesheet" href="/project/wwwroot/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
@@ -30,7 +32,8 @@ if(empty($content)) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Eighth navbar example">
         <div class="container">
             <a class="navbar-brand" href="/home">Logo</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07"
+                    aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -55,21 +58,30 @@ if(empty($content)) {
                     </li>
                 </ul>
 
-                <?php if (!User::isUserLogged()) : ?>
+                <?php
+                if (!User::isUserLogged()) : ?>
 
-                <div class="text-end">
-                    <button onclick="location.href = '/users/login'" type="button" class="btn btn-outline-light me-2">Увійти</button>
-                    <button onclick="location.href = '/users/register'" type="button" class="btn btn-warning">Зареєструватися</button>
-                </div>
+                    <div class="text-end">
+                        <button onclick="location.href = '/users/login'" type="button"
+                                class="btn btn-outline-light me-2">Увійти
+                        </button>
+                        <button onclick="location.href = '/users/register'" type="button" class="btn btn-warning">
+                            Зареєструватися
+                        </button>
+                    </div>
 
-                <?php else: ?>
+                <?php
+                else: ?>
 
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-warning me-2">Профіль</button>
-                    <button onclick="location.href = '/users/logout'" type="button" class="btn btn-outline-light me-2">Вийти</button>
-                </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-outline-warning me-2">Профіль</button>
+                        <button onclick="location.href = '/users/logout'" type="button"
+                                class="btn btn-outline-light me-2">Вийти
+                        </button>
+                    </div>
 
-                <?php endif ?>
+                <?php
+                endif ?>
             </div>
         </div>
     </nav>
