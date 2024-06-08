@@ -1,8 +1,15 @@
 <?php
 /** @var string $title */
 /** @var string $content */
+
+use project\models\User;
+
 if(empty($title)) {
     $title = '';
+}
+
+if(empty($content)) {
+    $content = '';
 }
 
 ?>
@@ -48,10 +55,21 @@ if(empty($title)) {
                     </li>
                 </ul>
 
+                <?php if (!User::isUserLogged()) : ?>
+
                 <div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
+                    <button onclick="location.href = '/users/login'" type="button" class="btn btn-outline-light me-2">Увійти</button>
+                    <button type="button" class="btn btn-warning">Зареєструватися</button>
                 </div>
+
+                <?php else: ?>
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-warning me-2">Профіль</button>
+                    <button onclick="location.href = '/users/logout'" type="button" class="btn btn-outline-light me-2">Вийти</button>
+                </div>
+
+                <?php endif ?>
             </div>
         </div>
     </nav>

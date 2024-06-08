@@ -3,6 +3,7 @@
 namespace project\controllers;
 
 use core\Controller;
+use core\Core;
 use project\models\Product;
 
 class ProductsController extends Controller
@@ -30,6 +31,10 @@ class ProductsController extends Controller
 //          'products',
 //          ['id' => $last_product->id]
 //        );
+//
+//        Product::deleteById($last_product->id);
+
+        $product = Product::findById(44);
 
         return $this->render();
     }

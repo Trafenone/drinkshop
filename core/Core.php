@@ -10,6 +10,7 @@ class Core
     public $actionName;
     public $router;
     public $template;
+    public $session;
     public $db;
 
     private function __construct()
@@ -22,11 +23,15 @@ class Core
         $password = Config::getInstance()->dbPassword;
 
         $this->db = new DB($host, $name, $login, $password);
+
+        $this->session = new Session();
+
+        session_start();
     }
 
     public static function getInstance()
     {
-        if(empty(self::$instance)) {
+        if (empty(self::$instance)) {
             self::$instance = new Core();
         }
 
@@ -37,7 +42,9 @@ class Core
     {
         $this->router = new Router($route);
         $params = $this->router->run();
-        $this->template->setParams($params);
+        if (!empty($params)) {
+            $this->template->setParams($params);
+        }
     }
 
     public function done()

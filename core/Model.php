@@ -5,7 +5,8 @@ namespace core;
 class Model
 {
     protected $fieldArray;
-    protected $primaryKey = 'id';
+    protected static $primaryKey = 'id';
+    protected static $tableName = '';
 
     function __construct()
     {
@@ -20,5 +21,51 @@ class Model
     public function __get($key)
     {
         return $this->fieldArray[$key];
+    }
+
+    public static function deleteById($id)
+    {
+        Core::getInstance()->db->delete(static::$tableName, [static::$primaryKey => $id]);
+    }
+
+    public static function deleteByCondition($conditionAssocArray)
+    {
+        Core::getInstance()->db->delete(static::$tableName, $conditionAssocArray);
+    }
+
+    public static function findById($id)
+    {
+        $arr = Core::getInstance()->db->select(static::$tableName, '*', [
+            static::$primaryKey => $id
+        ]);
+
+        if (count($arr) > 0) {
+            return $arr[0];
+        } else {
+            return null;
+        }
+    }
+
+    public static function findByCondition($conditionAssocArray)
+    {
+        $arr = Core::getInstance()->db->select(static::$tableName, '*', $conditionAssocArray);
+
+        if (count($arr) > 0) {
+            return $arr;
+        } else {
+            return null;
+        }
+    }
+
+    public function save()
+    {
+        $value = $this->{static::$primaryKey};
+        if (empty($value)) {
+            Core::getInstance()->db->insert(static::$tableName, $this->fieldArray);
+        } else {
+            Core::getInstance()->db->update(static::$tableName, $this->fieldArray, [
+                static::$primaryKey => $this->{static::$primaryKey}
+            ]);
+        }
     }
 }
