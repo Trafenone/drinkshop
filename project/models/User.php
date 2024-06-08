@@ -19,7 +19,7 @@ class User extends Model
 
     public static function findByEmailAndPassword($email, $password)
     {
-        $rows = self::findByCondition(['email' => $email, 'password' => $password]);
+        $rows = self::findByCondition(['email' => $email, 'password' => self::hashPassword($password)]);
 
         if (!empty($rows)) {
             return $rows[0];
@@ -44,22 +44,27 @@ class User extends Model
         return !empty(Core::getInstance()->session->get('user'));
     }
 
-    public static function login($user)
+    public static function login($user) : void
     {
         Core::getInstance()->session->set('user', $user);
     }
 
-    public static function register($username, $email, $password)
+    public static function register($username, $email, $password) : void
     {
         $user = new User();
         $user->username = $username;
         $user->email = $email;
-        $user->password = $password;
+        $user->password = self::hashPassword($password);
         $user->save();
     }
 
-    public static function logout()
+    public static function logout() : void
     {
         Core::getInstance()->session->remove('user');
+    }
+
+    public static function hashPassword($password) : string
+    {
+        return md5($password);
     }
 }

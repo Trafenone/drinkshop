@@ -19,7 +19,6 @@ class NewsController extends Controller
 
     public function actionAdd()
     {
-        Core::getInstance()->template->setParam('title', 'Add');
         return $this->render();
     }
 }

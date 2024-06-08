@@ -2,6 +2,8 @@
 
 namespace core;
 
+use project\controllers\ErrorController;
+
 class Router
 {
     protected $route;
@@ -35,25 +37,26 @@ class Router
             Core::getInstance()->controllerObject = $controllerObject;
             if (method_exists($controllerObject, $method)) {
                 array_splice($parts, 0, 2);
-                return $controllerObject->$method($parts);
+                $actionResult = $controllerObject->$method($parts);
+                if ($actionResult instanceof Error) {
+                    return $this->error($actionResult->code, $actionResult->message);
+                } else {
+                    return $actionResult;
+                }
             } else {
-                echo 'Method not exists!';
-                $this->error(404);
+                return $this->error(404);
             }
         } else {
-            echo 'Controller not exists!';
-            $this->error(404);
+            return $this->error(404);
         }
     }
 
-    public function done()
+    public function error($code, $message = null)
     {
+        Core::getInstance()->moduleName = 'error';
+        Core::getInstance()->actionName = 'error';
+        Core::getInstance()->controllerObject = new ErrorController();
 
-    }
-
-    public function error($code)
-    {
-        http_response_code($code);
-        echo $code;
+        return Core::getInstance()->controllerObject->actionError($code);
     }
 }

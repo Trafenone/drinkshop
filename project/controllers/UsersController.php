@@ -44,6 +44,8 @@ class UsersController extends Controller
 
             if(!$this->isErrorMessageExists()) {
                 User::register($this->post->username, $this->post->email, $this->post->password);
+
+                $this->redirect('/users/success');
             }
         }
 
@@ -55,5 +57,10 @@ class UsersController extends Controller
         User::logout();
 
         $this->redirect('/users/login');
+    }
+
+    public function actionSuccess()
+    {
+        return $this->render();
     }
 }

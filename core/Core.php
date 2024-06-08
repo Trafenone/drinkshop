@@ -51,7 +51,5 @@ class Core
     public function done()
     {
         $this->template->display();
-
-        $this->router->done();
     }
 }

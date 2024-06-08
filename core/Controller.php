@@ -63,4 +63,9 @@ class Controller
     {
         return count($this->errorMessages) > 0;
     }
+
+    public function error($code, $message = null)
+    {
+        return new Error($code, $message);
+    }
 }
