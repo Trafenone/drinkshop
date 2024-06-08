@@ -1,6 +1,5 @@
 <?php
 
-use core\Config;
 use core\Core;
 
 include('core/Router.php');

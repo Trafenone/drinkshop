@@ -6,6 +6,7 @@ class Template
 {
     protected $templateFilePath;
     protected $paramsArray;
+    public Controller $controller;
 
     public function __construct($templateFilePath)
     {
@@ -39,6 +40,7 @@ class Template
     public function getHTML()
     {
         ob_start();
+        $this->controller = Core::getInstance()->controllerObject;
         extract($this->paramsArray);
         include $this->templateFilePath;
         $content = ob_get_contents();

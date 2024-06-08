@@ -3,7 +3,6 @@
 namespace project\controllers;
 
 use core\Controller;
-use core\Core;
 use project\models\User;
 
 
@@ -11,17 +10,41 @@ class UsersController extends Controller
 {
     public function actionLogin()
     {
-        if ($this->isGet) {
-            return $this->render();
+        if(User::isUserLogged()) {
+            $this->redirect('/');
         }
 
-        $user = User::findByEmailAndPassword($this->post->email, $this->post->password);
+        if ($this->isPost) {
+            $user = User::findByEmailAndPassword($this->post->email, $this->post->password);
 
-        if (!empty($user)) {
-            User::login($user);
-            $this->redirect('/');
-        } else {
-            $this->template->setParam('error_message', 'Неправильна пошта та/або пароль');
+            if (!empty($user)) {
+                User::login($user);
+                $this->redirect('/');
+            } else {
+                $this->addErrorMessage('Неправильна пошта та/або пароль');
+            }
+        }
+
+        return $this->render();
+    }
+
+    public function actionRegister()
+    {
+        if($this->isPost) {
+            $email = $this->post->email;
+            $user = User::findByEmail($email);
+
+            if(!empty($user)) {
+                $this->addErrorMessage('Користувач з такою поштою вже існує');
+            }
+
+            if($this->post->password != $this->post->confirm_password) {
+                $this->addErrorMessage('Паролі не співпадають');
+            }
+
+            if(!$this->isErrorMessageExists()) {
+                User::register($this->post->username, $this->post->email, $this->post->password);
+            }
         }
 
         return $this->render();

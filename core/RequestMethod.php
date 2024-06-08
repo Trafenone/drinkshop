@@ -4,7 +4,7 @@ namespace core;
 
 class RequestMethod
 {
-    public $array;
+    public Array $array;
 
     public function __construct($array)
     {
@@ -13,6 +13,10 @@ class RequestMethod
 
     public function __get($key)
     {
+        if(!isset($this->array[$key])) {
+            return null;
+        }
+
         return $this->array[$key];
     }
 

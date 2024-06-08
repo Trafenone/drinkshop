@@ -59,7 +59,7 @@ if(empty($content)) {
 
                 <div class="text-end">
                     <button onclick="location.href = '/users/login'" type="button" class="btn btn-outline-light me-2">Увійти</button>
-                    <button type="button" class="btn btn-warning">Зареєструватися</button>
+                    <button onclick="location.href = '/users/register'" type="button" class="btn btn-warning">Зареєструватися</button>
                 </div>
 
                 <?php else: ?>

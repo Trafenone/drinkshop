@@ -20,6 +20,10 @@ class Model
 
     public function __get($key)
     {
+        if(!isset($this->fieldArray[$key])) {
+            return null;
+        }
+
         return $this->fieldArray[$key];
     }
 
@@ -33,7 +37,7 @@ class Model
         Core::getInstance()->db->delete(static::$tableName, $conditionAssocArray);
     }
 
-    public static function findById($id)
+    public static function findById($id) : object | null
     {
         $arr = Core::getInstance()->db->select(static::$tableName, '*', [
             static::$primaryKey => $id
@@ -46,7 +50,7 @@ class Model
         }
     }
 
-    public static function findByCondition($conditionAssocArray)
+    public static function findByCondition($conditionAssocArray) : array | null
     {
         $arr = Core::getInstance()->db->select(static::$tableName, '*', $conditionAssocArray);
 
@@ -57,7 +61,7 @@ class Model
         }
     }
 
-    public function save()
+    public function save() : void
     {
         $value = $this->{static::$primaryKey};
         if (empty($value)) {

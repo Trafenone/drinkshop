@@ -4,8 +4,9 @@ namespace core;
 
 class Core
 {
-    private static $instance;
-    public $defaultLayout = 'project/views/layouts/index.php';
+    private static Core $instance;
+    public string $defaultLayout = 'project/views/layouts/index.php';
+    public Controller $controllerObject;
     public $moduleName;
     public $actionName;
     public $router;
