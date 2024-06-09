@@ -5,10 +5,6 @@ $this->title = 'Напої';
 
 ?>
 
-<div class="row mt-2">
-    <a href="/products/add" class="btn btn-outline-success btn-sm">Додати напій</a>
-</div>
-
 <div class="products row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-1">
     <?php
     foreach ($products as $product) : ?>

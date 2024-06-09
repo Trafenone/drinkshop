@@ -18,6 +18,20 @@ class ProductsController extends Controller
         return $this->render();
     }
 
+    public function actionAdmin()
+    {
+        $products = Product::getProducts();
+
+        $this->template->setParam('products', $products);
+
+        return $this->render('project/views/products/index-admin.php');
+    }
+
+    public function actionView($params)
+    {
+
+    }
+
     public function actionAdd()
     {
         if ($this->isGet) {
@@ -39,5 +53,44 @@ class ProductsController extends Controller
         }
 
         return $this->render();
+    }
+
+    public function actionEdit($params)
+    {
+        $id = intval(array_shift($params));
+
+        if($id <= 0) {
+            return $this->error(400);
+        }
+
+        if($this->isPost) {
+            $updatedProduct = new Product();
+            $updatedProduct->id = $id;
+            $updatedProduct->name = $this->post->name;
+            $updatedProduct->description = $this->post->description;
+            $updatedProduct->price = $this->post->price;
+            $updatedProduct->category_id = $this->post->category_id;
+
+            Product::editProduct($updatedProduct, $_FILES['image']);
+
+            $this->redirect('/products/index');
+        }
+
+        $product = Product::findById($id);
+        $categories = Category::getCategories();
+
+        $this->template->setParam('product', $product);
+        $this->template->setParam('categories', $categories);
+
+        return $this->render();
+    }
+
+    public function actionDelete($params)
+    {
+        $id = intval(array_shift($params));
+
+        Product::deleteById($id);
+
+        $this->redirect('/products/index');
     }
 }

@@ -27,14 +27,67 @@ class Product extends Model
         return self::getAll(self::$tableName);
     }
 
-    public static function addProduct(Product $product, array $photo)
+    public static function getProductCategory($id)
     {
+        return Category::findById($id);
+    }
+
+    public static function addProduct(Product $product, array $photo) : void
+    {
+        $newPath = self::uploadPhoto($photo);
+        if ($newPath) {
+            $product->image = $newPath;
+            $product->save();
+        } else {
+            throw new \Exception('Failed to upload photo');
+        }
+    }
+
+    public static function editProduct(Product $product, array $photo) : void
+    {
+        $oldProduct = Product::findById($product->id);
+
+        if(empty($photo['tmp_name'])) {
+            $product->image = $oldProduct->image;
+        } else {
+            $newPath = self::uploadPhoto($photo);
+
+            if($newPath) {
+                if (is_file($oldProduct->image)) {
+                    unlink($oldProduct->image);
+                }
+
+                $product->image = $newPath;
+            } else {
+                throw new \Exception('Failed to upload photo');
+            }
+        }
+
+        $product->save();
+    }
+
+    private static function uploadPhoto(array $photo): ?string
+    {
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        $maxSize = 2 * 1024 * 1024;
+
+        if (!in_array($photo['type'], $allowedTypes)) {
+            return null;
+        }
+
+        if ($photo['size'] > $maxSize) {
+            return null;
+        }
+
         $tmpName = $photo['tmp_name'];
         $fileId = uniqid();
-        $extension = explode('/', $photo['type'])[1];
+        $extension = pathinfo($photo['name'], PATHINFO_EXTENSION);
         $newPath = "project/wwwroot/uploads/products/{$fileId}.{$extension}";
-        move_uploaded_file($tmpName, $newPath);
-        $product->image = $newPath;
-        $product->save();
+
+        if (move_uploaded_file($tmpName, $newPath)) {
+            return $newPath;
+        } else {
+            return null;
+        }
     }
 }
