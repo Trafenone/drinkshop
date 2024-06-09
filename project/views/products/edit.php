@@ -59,10 +59,10 @@ if (!is_file($filePath)) {
         </select>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-success">Додати</button>
+        <button type="submit" class="btn btn-success">Зберегти</button>
     </div>
     <div class="row mt-2">
-        <a href="/products/admin" class="btn btn-secondary">Повернутися назад</a>
+        <a href="/admin/products" class="btn btn-secondary">Повернутися назад</a>
     </div>
 </form>
 

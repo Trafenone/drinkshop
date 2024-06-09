@@ -1,5 +1,6 @@
 <?php
 /** @var array $products */
+/** @var array $cart */
 
 $this->title = 'Напої';
 
@@ -11,6 +12,7 @@ $this->title = 'Напої';
         <div class="col">
             <div class="card shadow-sm">
                 <?php
+                $isInCart = isset($cart[$product->id]);
                 $filePath = $product->image;
                 if (!is_file($filePath)) {
                     $filePath = '/project/wwwroot/uploads/no_image.jpg';
@@ -26,7 +28,10 @@ $this->title = 'Напої';
                         <div class="btn-group">
                             <a href="/products/view/<?= $product->id ?>"
                                class="btn btn-sm btn-outline-secondary">Детальніше</a>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Додати у кошик</button>
+                            <button class="btn btn-sm btn-outline-secondary btn-add-to-cart"
+                                    data-product-id="<?= $product->id ?>" <?= $isInCart ? 'disabled' : '' ?> >
+                                <?= $isInCart ? 'В кошику' : 'Додати до кошика' ?>
+                            </button>
                         </div>
                         <small class="text-body-secondary"><?= $product->price ?>$</small>
                     </div>
@@ -36,3 +41,31 @@ $this->title = 'Напої';
     <?php
     endforeach; ?>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-product-id');
+
+                fetch('/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId: productId, quantity: 1 })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            this.setAttribute('disabled', true);
+                            this.textContent = 'В кошику';
+                        } else {
+                            alert('Failed to add product to cart: ' + data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>

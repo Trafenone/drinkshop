@@ -52,14 +52,16 @@ if (empty($content)) {
                     <li class="nav-item">
                         <a class="nav-link" href="/news/index">Новини</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Адмінка</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/products/admin">Продукти</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
+                    <?php if(User::isAdmin()) : ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Адмінка</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="/admin/products">Продукти</a></li>
+                                <li><a class="dropdown-item" href="/admin/categories">Категорії</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                 </ul>
 
                 <?php

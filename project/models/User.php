@@ -39,17 +39,25 @@ class User extends Model
         }
     }
 
+    public static function isAdmin(): bool
+    {
+        if (self::isUserLogged()) {
+            return Core::getInstance()->session->get('user')->isAdmin;
+        }
+        return false;
+    }
+
     public static function isUserLogged(): bool
     {
         return !empty(Core::getInstance()->session->get('user'));
     }
 
-    public static function login($user) : void
+    public static function login($user): void
     {
         Core::getInstance()->session->set('user', $user);
     }
 
-    public static function register($username, $email, $password) : void
+    public static function register($username, $email, $password): void
     {
         $user = new User();
         $user->username = $username;
@@ -58,12 +66,12 @@ class User extends Model
         $user->save();
     }
 
-    public static function logout() : void
+    public static function logout(): void
     {
         Core::getInstance()->session->remove('user');
     }
 
-    public static function hashPassword($password) : string
+    public static function hashPassword($password): string
     {
         return md5($password);
     }

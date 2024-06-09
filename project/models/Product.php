@@ -22,17 +22,25 @@ class Product extends Model
         parent::__construct();
     }
 
+    public static function getProduct($id)
+    {
+        return Core::getInstance()->db->findOne(
+            'SELECT p.id, p.name, p.description, p.price, p.image, c.name 
+            AS category_name, c.id AS category_id FROM products AS p JOIN categories AS c ON p.category_id = c.id
+            WHERE p.id = :id',
+            ['id' => $id]
+        );
+    }
+
     public static function getProducts(): array
     {
-        return self::getAll(self::$tableName);
+        return Core::getInstance()->db->findMany(
+            'SELECT p.id, p.name, p.description, p.price, p.image, c.name 
+            AS category_name, c.id AS category_id FROM products AS p JOIN categories AS c ON p.category_id = c.id'
+        );
     }
 
-    public static function getProductCategory($id)
-    {
-        return Category::findById($id);
-    }
-
-    public static function addProduct(Product $product, array $photo) : void
+    public static function addProduct(Product $product, array $photo): void
     {
         $newPath = self::uploadPhoto($photo);
         if ($newPath) {
@@ -43,16 +51,16 @@ class Product extends Model
         }
     }
 
-    public static function editProduct(Product $product, array $photo) : void
+    public static function editProduct(Product $product, array $photo): void
     {
         $oldProduct = Product::findById($product->id);
 
-        if(empty($photo['tmp_name'])) {
+        if (empty($photo['tmp_name'])) {
             $product->image = $oldProduct->image;
         } else {
             $newPath = self::uploadPhoto($photo);
 
-            if($newPath) {
+            if ($newPath) {
                 if (is_file($oldProduct->image)) {
                     unlink($oldProduct->image);
                 }
@@ -64,6 +72,17 @@ class Product extends Model
         }
 
         $product->save();
+    }
+
+    public static function deleteProduct($id)
+    {
+        $product = Product::findById($id);
+
+        if (is_file($product->image)) {
+            unlink($product->image);
+        }
+
+        self::deleteById($id);
     }
 
     private static function uploadPhoto(array $photo): ?string

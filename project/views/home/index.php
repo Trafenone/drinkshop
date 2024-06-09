@@ -1,40 +1,70 @@
 <?php
-    $this->title = 'Index';
+
+$this->title = 'Магазин Напоїв';
 ?>
 
-<h1>Home page</h1>
+<section class="bg-danger-subtle text-white text-center py-5">
+    <div class="container">
+        <h1>Ласкаво просимо до Магазину Напоїв</h1>
+        <p>Ваш улюблений магазин для найкращих напоїв</p>
+    </div>
+</section>
 
-<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid cumque ipsam ipsum odio voluptatem! Architecto
-    doloribus eaque eos, fugit in itaque laboriosam magni nostrum provident quo reiciendis reprehenderit soluta
-    voluptatibus.
-</div>
-<div>Deleniti deserunt ducimus earum eligendi eum exercitationem fugiat fugit hic illo, illum iste laboriosam laborum
-    libero modi mollitia nulla perferendis provident quae quas quia quod rem soluta suscipit, vitae voluptas.
-</div>
-<div>A ab amet ducimus et hic labore libero praesentium provident quaerat soluta? A aut blanditiis deserunt dolorem,
-    earum enim eveniet fugiat impedit odio omnis placeat quae quos repellat saepe unde?
-</div>
-<div>Ad alias aspernatur blanditiis consequatur consequuntur eos expedita fugit id itaque laboriosam laudantium minus
-    mollitia, necessitatibus nihil nulla optio porro quasi qui quos recusandae, reiciendis repellat saepe, similique
-    veniam voluptates.
-</div>
-<div>Cumque laborum modi nemo nihil obcaecati qui reprehenderit ullam veniam. Ab accusantium aut, fuga iste magnam optio
-    quo quos reiciendis repudiandae, sequi sunt suscipit tempore vel vitae voluptate voluptatibus voluptatum?
-</div>
-<div>Ab adipisci animi blanditiis consequuntur dicta dolore enim error, exercitationem expedita facere fuga fugiat
-    impedit iure maiores molestiae necessitatibus nihil nobis nostrum officiis pariatur quos ratione rem rerum tempore
-    totam?
-</div>
-<div>Accusantium amet, beatae cupiditate dolor dolorem eos et facilis minima obcaecati odio omnis quod sequi sint sit
-    suscipit, tempore vel! Adipisci dignissimos expedita facilis fuga fugit magnam modi non quisquam!
-</div>
-<div>Ad adipisci aliquam animi atque, commodi dolorem eius eos et, excepturi impedit incidunt neque nulla omnis qui,
-    quod ratione similique tempore voluptate. Consequuntur deserunt error labore perferendis possimus, quis tenetur.
-</div>
-<div>Blanditiis ducimus maiores minus nemo nisi repellendus veniam? Doloremque laboriosam magni porro tenetur
-    voluptatibus? Laudantium minima nam placeat quae veritatis. Aut delectus deserunt illum ipsam laudantium nulla odit
-    placeat vel.
-</div>
-<div>Ab, blanditiis, deleniti dolor earum eum explicabo id iure laudantium minima nisi nostrum pariatur provident quas
-    quasi quibusdam repellendus similique sint tenetur totam ullam vitae voluptates voluptatibus! Esse facilis, quia!
-</div>
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Про нас</h2>
+                <p>У нашому магазині напоїв ви знайдете великий вибір напоїв з усього світу. Від витриманих вин та
+                    крафтових пив до освіжаючих безалкогольних напоїв та екзотичних чаїв, у нас є щось для кожного. Наша
+                    місія - доставляти найкращі напої прямо до ваших дверей з відмінним сервісом.</p>
+                <p>Наш магазин був заснований з любов'ю до якісних напоїв та бажанням поділитися цією любов'ю з вами. Ми
+                    постійно шукаємо нові та цікаві продукти, щоб запропонувати вам тільки найкраще. Наші фахівці завжди
+                    готові допомогти вам знайти саме те, що ви шукаєте.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Наш асортимент</h2>
+                <p>Досліджуйте наш великий асортимент продукції. Чи ви шукаєте особливу пляшку вина для святкування,
+                    унікальне крафтове пиво для зустрічі з друзями, чи здоровий та освіжаючий сік, у нас є все це і
+                    навіть більше. Наш асортимент постійно оновлюється новими та цікавими опціями.</p>
+                <p>Ми ретельно обираємо кожен продукт, щоб забезпечити вас найкращими напоями. Наша команда експертів
+                    подорожує по всьому світу, щоб знайти для вас найцікавіші новинки та найкращі класичні напої. Ви
+                    завжди знайдете у нас щось нове та захоплююче.</p>
+            </div>
+            <div class="col-md-4">
+                <h2>Чому обирають нас</h2>
+                <p>Ми пишаємося тим, що пропонуємо напої високої якості за конкурентними цінами. Наша команда
+                    захоплюється напоями та завжди готова допомогти вам знайти саме те, що вам потрібно. Крім того, з
+                    нашим зручним інтернет-магазином та швидкою доставкою, насолоджуватися улюбленими напоями стало ще
+                    легше.</p>
+                <p>Ми прагнемо забезпечити вас найкращим сервісом. Наша команда завжди готова надати вам консультацію та
+                    допомогу у виборі. Ми цінуємо кожного нашого клієнта і робимо все можливе, щоб ваш досвід покупок у
+                    нашому магазині був приємним та комфортним.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container">
+        <h2 class="text-center">Наші цінності</h2>
+        <p class="text-center">Ми прагнемо до досконалості у всьому, що робимо. Наші основні цінності включають якість,
+            інновації та задоволення потреб клієнтів. Ми постійно вдосконалюємо наші процеси та шукаємо нові способи,
+            щоб зробити ваш досвід покупок ще кращим.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Якість</h3>
+                <p>Ми гарантуємо високу якість кожного продукту, що ви купуєте у нас. Всі наші напої проходять ретельний
+                    контроль якості, щоб ви могли насолоджуватися тільки найкращими продуктами. Ми співпрацюємо з
+                    найкращими виробниками з усього світу, щоб забезпечити вас найякіснішими напоями.</p>
+            </div>
+            <div class="col-md-6">
+                <h3>Інновації</h3>
+                <p>Ми завжди знаходимося в пошуку нових та захоплюючих продуктів, щоб запропонувати вам найкращі
+                    новинки. Наш асортимент постійно оновлюється, щоб ви завжди мали доступ до найцікавіших та
+                    найсмачніших напоїв. Ми прагнемо бути лідерами у сфері продажу напоїв та пропонувати вам тільки
+                    найкраще.</p>
+            </div>
+        </div>
+    </div>
+</section>

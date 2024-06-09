@@ -18,7 +18,23 @@ class DB
         );
     }
 
-    protected function where($where)
+    public function findOne($query, $params = []) : mixed
+    {
+        $sth = $this->pdo->prepare($query);
+        $this->bindValues($sth, $params);
+        $sth->execute();
+        return $sth->fetch();
+    }
+
+    public function findMany($query, $params = []) : array | false
+    {
+        $sth = $this->pdo->prepare($query);
+        $this->bindValues($sth, $params);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+    protected function where($where) : string
     {
         if (is_array($where)) {
             $parts = [];
@@ -33,14 +49,14 @@ class DB
         return $where_string;
     }
 
-    protected function bindValues($sth, $params)
+    protected function bindValues($sth, $params) : void
     {
         foreach ($params as $key => $value) {
             $sth->bindValue(":{$key}", $value);
         }
     }
 
-    public function select($table, $fields = '*', $where = null)
+    public function select($table, $fields = '*', $where = null) : array | false
     {
         $fields_string = is_array($fields) ? implode(', ', $fields) : (is_string($fields) ? $fields : '*');
         $where_string = $this->where($where);
@@ -56,7 +72,7 @@ class DB
         return $sth->fetchAll();
     }
 
-    public function insert($table, $row_to_insert)
+    public function insert($table, $row_to_insert) : int
     {
         $fields_list = implode(", ", array_keys($row_to_insert));
         $params_list = implode(', ', array_map(function ($key) {
@@ -72,7 +88,7 @@ class DB
         return $sth->rowCount();
     }
 
-    public function update($table, $row_to_update, $where)
+    public function update($table, $row_to_update, $where) : int
     {
         $set_string = implode(', ', array_map(function ($key) {
             return "{$key} = :{$key}";
@@ -88,7 +104,7 @@ class DB
         return $sth->rowCount();
     }
 
-    public function delete($table, $where)
+    public function delete($table, $where) : int
     {
         $where_string = $this->where($where);
 

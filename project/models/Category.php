@@ -16,4 +16,11 @@ class Category extends Model
     {
         return self::getAll(self::$tableName);
     }
+
+    public static function addCategory($name)
+    {
+        $category = new Category();
+        $category->name = $name;
+        $category->save();
+    }
 }

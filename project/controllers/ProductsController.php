@@ -4,6 +4,7 @@ namespace project\controllers;
 
 use core\Controller;
 use core\Core;
+use project\models\Cart;
 use project\models\Category;
 use project\models\Product;
 
@@ -12,24 +13,33 @@ class ProductsController extends Controller
     public function actionIndex()
     {
         $products = Product::getProducts();
+        $cart = Cart::getCart();
+
+        if(!empty($cart)) {
+            $cart = json_decode($cart, true);
+        }
 
         $this->template->setParam('products', $products);
+        $this->template->setParam('cart', $cart);
 
         return $this->render();
     }
 
-    public function actionAdmin()
-    {
-        $products = Product::getProducts();
-
-        $this->template->setParam('products', $products);
-
-        return $this->render('project/views/products/index-admin.php');
-    }
-
     public function actionView($params)
     {
+        $id = intval(array_shift($params));
 
+        $product = Product::getProduct($id);
+        $cart = Cart::getCart();
+
+        if(!empty($cart)) {
+            $cart = json_decode($cart, true);
+        }
+
+        $this->template->setParam('product', $product);
+        $this->template->setParam('cart', $cart);
+
+        return $this->render();
     }
 
     public function actionAdd()
@@ -49,7 +59,7 @@ class ProductsController extends Controller
 
             Product::addProduct($product, $_FILES['image']);
 
-            $this->redirect('/products/index');
+            $this->redirect('/admin/products');
         }
 
         return $this->render();
@@ -73,7 +83,7 @@ class ProductsController extends Controller
 
             Product::editProduct($updatedProduct, $_FILES['image']);
 
-            $this->redirect('/products/index');
+            $this->redirect('/admin/products');
         }
 
         $product = Product::findById($id);
@@ -89,8 +99,8 @@ class ProductsController extends Controller
     {
         $id = intval(array_shift($params));
 
-        Product::deleteById($id);
+        Product::deleteProduct($id);
 
-        $this->redirect('/products/index');
+        $this->redirect('/admin/products');
     }
 }

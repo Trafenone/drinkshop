@@ -8,7 +8,7 @@ $this->title = 'Додавання нового напою';
 
 <h1 class="text-center mt-1">Додавання нового напою</h1>
 
-<form id="category" method="post" action="" enctype="multipart/form-data">
+<form id="product" method="post" action="" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="name">Напій</label>
         <input name="name" type="text" class="form-control" id="name" placeholder="Назва напою">
@@ -23,7 +23,7 @@ $this->title = 'Додавання нового напою';
     </div>
     <div class="mb-3">
         <label for="image" class="form-label">Фото</label>
-        <input name="image" class="form-control" type="file" id="image" accept="image/png, image/jpg, image/jpeg" >
+        <input name="image" class="form-control" type="file" id="image" accept="image/jpeg" >
     </div>
     <div class="mb-3">
         <label for="category_id">Категорія напою</label>
@@ -39,12 +39,12 @@ $this->title = 'Додавання нового напою';
         <button type="submit" class="btn btn-success">Додати</button>
     </div>
     <div class="row mt-2">
-        <a href="/products/admin" class="btn btn-secondary">Повернутися назад</a>
+        <a href="/admin/products" class="btn btn-secondary">Повернутися назад</a>
     </div>
 </form>
 
 <script>
-    $("#category").validate({
+    $("#product").validate({
         rules: {
             name: {
                 required: true,
@@ -60,7 +60,7 @@ $this->title = 'Додавання нового напою';
                 min: 0.01
             },
             image: {
-                required: true,
+                required: true
             },
             category_id: {
                 required: true,
@@ -83,7 +83,7 @@ $this->title = 'Додавання нового напою';
                 min: "Мінімальна ціна - 0.01"
             },
             image: {
-                required: "Має бути завантажене зображення",
+                required: "Має бути завантажене зображення"
             },
             category_id: {
                 required: "Обов'язкове поле",

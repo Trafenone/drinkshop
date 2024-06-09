@@ -37,6 +37,13 @@ class Router
             Core::getInstance()->controllerObject = $controllerObject;
             if (method_exists($controllerObject, $method)) {
                 array_splice($parts, 0, 2);
+
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $params = $_POST;
+                } else {
+                    $params = $parts;
+                }
+
                 $actionResult = $controllerObject->$method($parts);
                 if ($actionResult instanceof Error) {
                     return $this->error($actionResult->code, $actionResult->message);
