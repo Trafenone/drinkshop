@@ -32,7 +32,7 @@ $totalPrice = 0;
                 $product = $products[$productId];
                 $totalPrice += $product->price * $quantity;
                 $filePath = $product->image;
-                if (!is_file($filePath)) {
+                if ($filePath == null || !is_file($filePath)) {
                     $filePath = '/project/wwwroot/uploads/no_image.jpg';
                 } else {
                     $filePath = '/' . $filePath;
@@ -61,7 +61,7 @@ $totalPrice = 0;
             </tbody>
         </table>
         <div class="row justify-content-around">
-            <h3 class="col-auto">Загальна сума: <?= $totalPrice ?>$</h3>
+            <h3 class="col-auto">Загальна сума: <?= $totalPrice ?>₴</h3>
             <a class="btn btn-outline-success col-auto" href="/cart/checkout">Оформити замовлення</a>
         </div>
     <?php

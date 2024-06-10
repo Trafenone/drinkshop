@@ -4,6 +4,7 @@ namespace project\controllers;
 
 use core\Controller;
 use project\models\Category;
+use project\models\Order;
 use project\models\Product;
 
 class AdminController extends Controller
