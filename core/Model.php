@@ -66,13 +66,13 @@ class Model
         }
     }
 
-    public function save() : void
+    public function save()
     {
         $value = $this->{static::$primaryKey};
         if (empty($value)) {
-            Core::getInstance()->db->insert(static::$tableName, $this->fieldArray);
+            return Core::getInstance()->db->insert(static::$tableName, $this->fieldArray);
         } else {
-            Core::getInstance()->db->update(static::$tableName, $this->fieldArray, [
+            return Core::getInstance()->db->update(static::$tableName, $this->fieldArray, [
                 static::$primaryKey => $this->{static::$primaryKey}
             ]);
         }

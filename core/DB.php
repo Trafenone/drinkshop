@@ -85,7 +85,7 @@ class DB
         $this->bindValues($sth, $row_to_insert);
         $sth->execute();
 
-        return $sth->rowCount();
+        return $this->pdo->lastInsertId();
     }
 
     public function update($table, $row_to_update, $where) : int

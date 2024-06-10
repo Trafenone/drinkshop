@@ -41,7 +41,7 @@ if (empty($content)) {
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample07">
+            <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/home">Головна</a>
@@ -58,21 +58,27 @@ if (empty($content)) {
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="/admin/products">Продукти</a></li>
                                 <li><a class="dropdown-item" href="/admin/categories">Категорії</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
                     <?php endif; ?>
                 </ul>
+
+                <div class="text-end">
+                    <a href="/cart/index" class="btn btn-outline-info me-2">
+                        <i class="bi bi-basket"></i> Корзина
+                    </a>
+                </div>
 
                 <?php
                 if (!User::isUserLogged()) : ?>
 
                     <div class="text-end">
                         <button onclick="location.href = '/users/login'" type="button"
-                                class="btn btn-outline-light me-2">Увійти
+                                class="btn btn-outline-light me-1">
+                            <i class="bi bi-box-arrow-in-right"></i> Увійти
                         </button>
                         <button onclick="location.href = '/users/register'" type="button" class="btn btn-warning">
-                            Зареєструватися
+                            <i class="bi bi-person-add"></i> Зареєструватися
                         </button>
                     </div>
 
@@ -80,9 +86,12 @@ if (empty($content)) {
                 else: ?>
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-warning me-2">Профіль</button>
+                        <button type="button" class="btn btn-outline-warning me-2">
+                            <i class="bi bi-person-circle"></i> Профіль
+                        </button>
                         <button onclick="location.href = '/users/logout'" type="button"
-                                class="btn btn-outline-light me-2">Вийти
+                                class="btn btn-outline-light me-2">
+                            <i class="bi bi-box-arrow-left"></i> Вийти
                         </button>
                     </div>
 

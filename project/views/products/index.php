@@ -14,7 +14,7 @@ $this->title = 'Напої';
                 <?php
                 $isInCart = isset($cart[$product->id]);
                 $filePath = $product->image;
-                if (!is_file($filePath)) {
+                if ($filePath == null || !is_file($filePath)) {
                     $filePath = '/project/wwwroot/uploads/no_image.jpg';
                 } else {
                     $filePath = '/' . $filePath;

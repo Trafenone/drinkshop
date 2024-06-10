@@ -28,7 +28,7 @@ $this->title = 'Адмін панель';
     foreach ($products as $product) : ?>
         <?php
         $filePath = $product->image;
-        if (!is_file($filePath)) {
+        if ($filePath == null || !is_file($filePath)) {
             $filePath = '/project/wwwroot/uploads/no_image.jpg';
         } else {
             $filePath = '/' . $filePath;
