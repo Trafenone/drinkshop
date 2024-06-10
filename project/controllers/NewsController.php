@@ -11,14 +11,4 @@ class NewsController extends Controller
     {
         return $this->render();
     }
-
-    public function actionView($params)
-    {
-        var_dump($params);
-    }
-
-    public function actionAdd()
-    {
-        return $this->render();
-    }
 }

@@ -12,17 +12,42 @@ class ProductsController extends Controller
 {
     public function actionIndex()
     {
-        $products = Product::getProducts();
+        $page = $this->get->page ? (int)$this->get->page : 1;
+        $category = $this->get->category ? (int)$this->get->category : null;
+        $search = $this->get->search ? $this->get->search : '';
+
+        $productsPerPage = 10;
+
+        $productsData = Product::getFilteredProducts($page, $productsPerPage, $category, $search);
+        $categories = Category::getAll();
+
         $cart = Cart::getCart();
 
-        if(!empty($cart)) {
+        if (!empty($cart)) {
             $cart = json_decode($cart, true);
         }
 
-        $this->template->setParam('products', $products);
-        $this->template->setParam('cart', $cart);
+        return $this->render(null, [
+            'products' => $productsData['products'],
+            'totalPages' => $productsData['totalPages'],
+            'currentPage' => $page,
+            'categories' => $categories,
+            'searchQuery' => $search,
+            'selectedCategoryId' => $category,
+            'cart' => $cart
+        ]);
 
-        return $this->render();
+//        $products = Product::getProducts();
+//        $cart = Cart::getCart();
+//
+//        if(!empty($cart)) {
+//            $cart = json_decode($cart, true);
+//        }
+//
+//        $this->template->setParam('products', $products);
+//        $this->template->setParam('cart', $cart);
+//
+//        return $this->render();
     }
 
     public function actionView($params)
@@ -32,7 +57,7 @@ class ProductsController extends Controller
         $product = Product::getProduct($id);
         $cart = Cart::getCart();
 
-        if(!empty($cart)) {
+        if (!empty($cart)) {
             $cart = json_decode($cart, true);
         }
 
@@ -69,11 +94,11 @@ class ProductsController extends Controller
     {
         $id = intval(array_shift($params));
 
-        if($id <= 0) {
+        if ($id <= 0) {
             return $this->error(400);
         }
 
-        if($this->isPost) {
+        if ($this->isPost) {
             $updatedProduct = new Product();
             $updatedProduct->id = $id;
             $updatedProduct->name = $this->post->name;

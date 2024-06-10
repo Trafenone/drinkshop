@@ -13,6 +13,7 @@ class DB
             $login, $password,
             [
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_EMULATE_PREPARES => false,
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
             ]
         );
@@ -20,18 +21,27 @@ class DB
 
     public function findOne($query, $params = []) : mixed
     {
-        $sth = $this->pdo->prepare($query);
-        $this->bindValues($sth, $params);
-        $sth->execute();
-        return $sth->fetch();
+        try {
+            $sth = $this->pdo->prepare($query);
+            $this->bindValues($sth, $params);
+            $sth->execute();
+            return $sth->fetch();
+        } catch (\Exception $exception) {
+            var_dump($exception);
+        }
     }
 
     public function findMany($query, $params = []) : array | false
     {
-        $sth = $this->pdo->prepare($query);
-        $this->bindValues($sth, $params);
-        $sth->execute();
-        return $sth->fetchAll();
+        try {
+            $sth = $this->pdo->prepare($query);
+            $this->bindValues($sth, $params);
+            $sth->execute();
+
+            return $sth->fetchAll();
+        } catch (\Exception $exception) {
+            var_dump($exception);
+        }
     }
 
     protected function where($where) : string

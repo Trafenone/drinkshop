@@ -8,7 +8,7 @@
     transform: scale(1.05);
 }
 
-#category .error {
+#category .error, #product .error {
     color: #ff4647;
     margin-top: 5px;
 }

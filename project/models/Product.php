@@ -40,6 +40,56 @@ class Product extends Model
         );
     }
 
+    public static function getFilteredProducts($page, $productsPerPage, $category = null, $search = '')
+    {
+        $offset = ($page - 1) * $productsPerPage;
+        $params = [];
+        $sql = "SELECT p.id, p.name, p.description, p.price, p.image, c.name AS category_name 
+                FROM products AS p 
+                JOIN categories AS c ON p.category_id = c.id 
+                WHERE 1=1 ";
+
+        if ($category) {
+            $sql .= " AND p.category_id = :category";
+            $params['category'] = $category;
+        }
+
+        if ($search) {
+            $sql .= " AND (p.name LIKE :search1 OR p.description LIKE :search2)";
+            $params['search1'] = "%$search%";
+            $params['search2'] = "%$search%";
+        }
+
+        $sql .= " LIMIT :limit OFFSET :offset";
+        $params['limit'] = $productsPerPage;
+        $params['offset'] = $offset;
+
+        $products = Core::getInstance()->db->findMany($sql, $params);
+
+        $params = [];
+
+        $countSql = "SELECT COUNT(*) FROM products WHERE 1=1 ";
+        if ($category) {
+            $countSql .= " AND category_id = :category";
+            $params['category'] = $category;
+        }
+
+        if ($search) {
+            $countSql .= " AND (name LIKE :search1 OR description LIKE :search2)";
+            $params['search1'] = "%$search%";
+            $params['search2'] = "%$search%";
+        }
+
+        $totalProducts = Core::getInstance()->db->findOne($countSql, $params);
+
+        $totalPages = ceil( $totalProducts->{'COUNT(*)'}/ $productsPerPage);
+
+        return [
+            'products' => $products,
+            'totalPages' => $totalPages,
+        ];
+    }
+
     public static function addProduct(Product $product, array $photo): void
     {
         $newPath = self::uploadPhoto($photo);
