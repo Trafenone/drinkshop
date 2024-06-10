@@ -8,6 +8,17 @@ use project\models\User;
 
 class UsersController extends Controller
 {
+    public function actionProfile()
+    {
+        if (!User::isUserLogged()) {
+            $this->redirect('/users/login');
+        }
+
+        $this->template->setParam('user', User::getUserInformation());
+
+        return $this->render();
+    }
+
     public function actionLogin()
     {
         if(User::isUserLogged()) {

@@ -86,9 +86,9 @@ if (empty($content)) {
                 else: ?>
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-warning me-2">
+                        <a href="/users/profile" type="button" class="btn btn-outline-warning me-2">
                             <i class="bi bi-person-circle"></i> Профіль
-                        </button>
+                        </a>
                         <button onclick="location.href = '/users/logout'" type="button"
                                 class="btn btn-outline-light me-2">
                             <i class="bi bi-box-arrow-left"></i> Вийти

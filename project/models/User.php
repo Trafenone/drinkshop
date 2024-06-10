@@ -17,6 +17,11 @@ class User extends Model
 {
     public static $tableName = 'users';
 
+    public static function getUserInformation()
+    {
+        return Core::getInstance()->session->get('user');
+    }
+
     public static function findByEmailAndPassword($email, $password)
     {
         $rows = self::findByCondition(['email' => $email, 'password' => self::hashPassword($password)]);
