@@ -60,9 +60,7 @@ class Product extends Model
             $params['search2'] = "%$search%";
         }
 
-        $sql .= " LIMIT :limit OFFSET :offset";
-        $params['limit'] = $productsPerPage;
-        $params['offset'] = $offset;
+        $sql .= " LIMIT " . (int)$productsPerPage . " OFFSET " . (int)$offset;
 
         $products = Core::getInstance()->db->findMany($sql, $params);
 
@@ -111,7 +109,7 @@ class Product extends Model
             $newPath = self::uploadPhoto($photo);
 
             if ($newPath) {
-                if (is_file($oldProduct->image)) {
+                if ($oldProduct->image != null && is_file($oldProduct->image)) {
                     unlink($oldProduct->image);
                 }
 

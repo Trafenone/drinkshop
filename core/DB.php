@@ -13,7 +13,6 @@ class DB
             $login, $password,
             [
                 \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-                \PDO::ATTR_EMULATE_PREPARES => false,
                 \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ
             ]
         );
@@ -100,18 +99,22 @@ class DB
 
     public function update($table, $row_to_update, $where) : int
     {
-        $set_string = implode(', ', array_map(function ($key) {
-            return "{$key} = :{$key}";
-        }, array_keys($row_to_update)));
-        $where_string = $this->where($where);
+        try {
+            $set_string = implode(', ', array_map(function ($key) {
+                return "{$key} = :{$key}";
+            }, array_keys($row_to_update)));
+            $where_string = $this->where($where);
 
-        $sql = "UPDATE {$table} SET {$set_string} {$where_string}";
-        $sth = $this->pdo->prepare($sql);
+            $sql = "UPDATE {$table} SET {$set_string} {$where_string}";
+            $sth = $this->pdo->prepare($sql);
 
-        $this->bindValues($sth, array_merge($row_to_update, $where));
-        $sth->execute();
+            $this->bindValues($sth, array_merge($row_to_update, $where));
+            $sth->execute();
 
-        return $sth->rowCount();
+            return $sth->rowCount();
+        } catch (\Exception $exception) {
+            var_dump($exception);
+        }
     }
 
     public function delete($table, $where) : int

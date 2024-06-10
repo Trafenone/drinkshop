@@ -36,18 +36,6 @@ class ProductsController extends Controller
             'selectedCategoryId' => $category,
             'cart' => $cart
         ]);
-
-//        $products = Product::getProducts();
-//        $cart = Cart::getCart();
-//
-//        if(!empty($cart)) {
-//            $cart = json_decode($cart, true);
-//        }
-//
-//        $this->template->setParam('products', $products);
-//        $this->template->setParam('cart', $cart);
-//
-//        return $this->render();
     }
 
     public function actionView($params)

@@ -8,7 +8,7 @@ $totalAmount = 0;
 
 <div class="container mt-4">
     <h1>Оформлення замовлення</h1>
-    <form method="post">
+    <form id="checkout" method="post">
         <div class="row">
             <div class="col-md-8">
                 <h4>Ваші товари</h4>
@@ -69,3 +69,48 @@ $totalAmount = 0;
         </div>
     </form>
 </div>
+
+<script>
+    $("#checkout").validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            address: {
+                required: true,
+                minlength: 5
+            },
+            phone: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            name: {
+                required: "Введіть прізвище та ім'я",
+                minlength: jQuery.validator.format("Довжина повинна бути {0} або більше")
+            },
+            email: {
+                required: "Введіть вашу пошту",
+                minlength: jQuery.validator.format("Довжина повинна бути {0} або більше")
+            },
+            address: {
+                required: "Введіть вашу адресу",
+                minlength: jQuery.validator.format("Довжина повинна бути {0} або більше"),
+            },
+            phone: {
+                required: "Введіть номер телефону",
+                number: "Введіть коректний номер телефону"
+            }
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+</script>
